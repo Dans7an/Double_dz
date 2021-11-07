@@ -1,13 +1,21 @@
 package com.double_dz.tictactoe.client;
 
 
+import com.double_dz.tictactoe.ComputerPlayer;
+import com.double_dz.tictactoe.HumanPlayer;
 import com.double_dz.tictactoe.Letter;
+import com.double_dz.tictactoe.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    public static List<List> winningCombos = new ArrayList<>();
+    public static Player humanPlayer = new HumanPlayer();
+    public static ComputerPlayer cpuPlayer = new ComputerPlayer();
+
     public static void main(String[] args) {
      /*   char[][] gameBoard = {
                 {' ', '|', ' ', '|', ' '},
@@ -38,23 +46,29 @@ public class Main {
             }
             else {
                 addLetter(exampleBoard, position, "Player");
-                availablePosition.remove(new Integer(position));
+                humanPlayer.placeLetter(position);
+                availablePosition.remove(Integer.valueOf(position));
+                if(checkWinner(humanPlayer.getSelectedPositions(), humanPlayer).length() > 0){
+                    break;
+                }
                 if(availablePosition.size()==0){
                     printBoard(exampleBoard);
                     System.out.println("Game over! Result: Tie.");
                     break;
                 }
-                int cpuIndex = (int) Math.floor(Math.random() * availablePosition.size());
-                int cpuPosition = availablePosition.get(cpuIndex);
-                System.out.println("cpuPosition: " + cpuPosition);
+                int cpuPosition = cpuPlayer.generateCPUPosition(availablePosition);
                 addLetter(exampleBoard, cpuPosition, "Computer");
-                availablePosition.remove(cpuIndex);
+                availablePosition.remove(cpuPlayer.getCPUPositionIndex());
                 selectedPosition.add(cpuPosition);
+            }
+            if (checkWinner(cpuPlayer.getSelectedPositions(), cpuPlayer).length() > 0){
+                break;
             }
             selectedPosition.add(position);
             printBoard(exampleBoard);
         }
     }
+
     public static void printBoard(char[][] board) {
         for (char[] row : board) {
             for (char c : row) {
@@ -63,6 +77,7 @@ public class Main {
             System.out.println();
         }
     }
+
    public static void addLetter(char[][] board, int position, String name){
         char sign;
         if(name.equals("Player")){
@@ -102,11 +117,36 @@ public class Main {
         }
 
     }
-        public static List<Integer> createNumbers(){
+
+    public static List<Integer> createNumbers(){
          List<Integer> availableNumbers = new ArrayList<>();
          for(int i = 1; i <= 9; i++){
              availableNumbers.add(i);
          }
          return availableNumbers;
+    }
+
+    public static String checkWinner(List<Integer> positions, Player player){
+        String whoWon = "";
+        System.out.println("winningCombos: " + winningCombos);
+        System.out.println(player.getClass().getSimpleName() + " positions " + positions);
+        for (var i: winningCombos) {
+            if (positions.containsAll(i)){
+                whoWon = player.getClass().getSimpleName() + ", You win";
+                System.out.println(whoWon);
+            }
+        }
+        return whoWon;
+    }
+
+    static {
+        winningCombos.add(Arrays.asList(1,2,3));
+        winningCombos.add(Arrays.asList(4,5,6));
+        winningCombos.add(Arrays.asList(7,8,9));
+        winningCombos.add(Arrays.asList(1,4,7));
+        winningCombos.add(Arrays.asList(2,5,8));
+        winningCombos.add(Arrays.asList(3,6,9));
+        winningCombos.add(Arrays.asList(1,5,9));
+        winningCombos.add(Arrays.asList(7,5,3));
     }
 }
