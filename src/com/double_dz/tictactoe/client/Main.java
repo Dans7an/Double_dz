@@ -132,7 +132,7 @@ public class Main {
         System.out.println(player.getClass().getSimpleName() + " positions " + positions);
         for (var i: winningCombos) {
             if (positions.containsAll(i)){
-                whoWon = player.getClass().getSimpleName() + ", You win";
+                whoWon = player.getClass().getSimpleName() + " win";
                 System.out.println(whoWon);
             }
         }
