@@ -10,6 +10,8 @@ public class Board {
         public static Player humanPlayer = new HumanPlayer();
         public static Player humanPlayer2 = new HumanPlayer();
         public static ComputerPlayer cpuPlayer = new ComputerPlayer();
+        public static List<Integer> selectedPosition = new ArrayList<>();
+        public static List<Integer> availablePosition = createNumbers();
         public static char[][] exampleBoard = {
                 {'1', '|', '2', '|', '3'},
                 {'_','+','_','+','_'},
@@ -23,6 +25,17 @@ public class Board {
             System.out.println("Please enter a number between 1 and 9");
             playComputer(selectedPosition, availablePosition);
             // multiPlayer(selectedPosition, availablePosition);
+        }
+
+        public static void play(String mode){
+            printBoard(exampleBoard);
+            System.out.println("Please enter a number between 1 and 9");
+            if(mode.equals("C")){
+                playComputer(selectedPosition, availablePosition);
+            }
+            else{
+                multiPlayer(selectedPosition, availablePosition);
+            }
         }
         private static boolean validatePosition(int position,List<Integer> selectedPosition, List<Integer> availablePosition){
             boolean isValidPosition = false;
@@ -118,10 +131,10 @@ public class Board {
         public static void addLetter(char[][] board, int position, String name){
             char sign;
             if(name.equals("Player 1")){
-                sign=Letter.X.getLetter();
+                sign='X';
             }
             else{
-                sign=Letter.O.getLetter();
+                sign='O';
             }
             switch (position){
                 case 1:

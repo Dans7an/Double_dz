@@ -5,4 +5,6 @@ import java.util.List;
 public interface Player {
     public List<Integer> placeLetter(int position);
     public List<Integer> getSelectedPositions();
+    public void setName(String name);
+    public String getName();
 }

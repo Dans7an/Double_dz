@@ -7,6 +7,7 @@ public class ComputerPlayer implements Player {
 
     private List<Integer> cpuSelectedPositions = new ArrayList<>();
     private int cpuIndex;
+    private String name = "Computer";
 
     @Override
     public List<Integer> placeLetter(int position) {
@@ -29,5 +30,15 @@ public class ComputerPlayer implements Player {
     @Override
     public List<Integer> getSelectedPositions() {
         return cpuSelectedPositions;
+    }
+
+    @Override
+    public void setName(String name) {
+
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }
