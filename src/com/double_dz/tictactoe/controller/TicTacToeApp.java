@@ -133,10 +133,6 @@ public class TicTacToeApp {
         moreOptions(mode);
     }
 
-    private void restartGame(){
-
-    }
-
     private void quitGame(){
         gameSurvey();
     }
