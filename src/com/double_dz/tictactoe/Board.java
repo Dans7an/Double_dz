@@ -7,18 +7,20 @@ import java.util.Scanner;
 
 public class Board {
         public static List<List> winningCombos = new ArrayList<>();
-        public static Player humanPlayer = new HumanPlayer();
-        public static Player humanPlayer2 = new HumanPlayer();
-        public static ComputerPlayer cpuPlayer = new ComputerPlayer();
-        public static List<Integer> selectedPosition = new ArrayList<>();
-        public static List<Integer> availablePosition = createNumbers();
-        public static char[][] exampleBoard = {
+        public  Player humanPlayer = new HumanPlayer();
+        public  Player humanPlayer2 = new HumanPlayer();
+        public  ComputerPlayer cpuPlayer = new ComputerPlayer();
+        public  List<Integer> selectedPosition = new ArrayList<>();
+        public  List<Integer> availablePosition = createNumbers();
+        private String boardColor;
+        private static final String resetColor = "\u001B[0m";
+        public char[][] exampleBoard = {
                 {'1', '|', '2', '|', '3'},
                 {'_','+','_','+','_'},
                 {'4', '|', '5', '|', '6'},
                 {'_','+','_','+','_'},
                 {'7', '|', '8', '|', '9'}};
-        public static void main(String[] args) {
+        /*public static void main(String[] args) {
             printBoard(exampleBoard);
             List<Integer> selectedPosition = new ArrayList<>();
             List<Integer> availablePosition = createNumbers();
@@ -26,8 +28,9 @@ public class Board {
             playComputer(selectedPosition, availablePosition);
             // multiPlayer(selectedPosition, availablePosition);
         }
+*/
 
-        public static void play(String mode){
+        public void play(String mode){
             printBoard(exampleBoard);
             System.out.println("Please enter a number between 1 and 9");
             if(mode.equals("C")){
@@ -37,7 +40,7 @@ public class Board {
                 multiPlayer(selectedPosition, availablePosition);
             }
         }
-        private static boolean validatePosition(int position,List<Integer> selectedPosition, List<Integer> availablePosition){
+        private boolean validatePosition(int position,List<Integer> selectedPosition, List<Integer> availablePosition){
             boolean isValidPosition = false;
             if (position > 9 || position < 1) {
                 System.out.println("Invalid input: " + position + ". Please enter a number between 1 and 9.");
@@ -50,9 +53,9 @@ public class Board {
             return isValidPosition;
         }
 
-        public static void multiPlayer(List<Integer> selectedPosition, List<Integer> availablePosition){
+        public void multiPlayer(List<Integer> selectedPosition, List<Integer> availablePosition){
             while(true) {
-                System.out.println("Player 1, it is your turn: ");
+                System.out.println(humanPlayer.getName() + ", it is your turn: ");
                 Scanner scanner = new Scanner(System.in);
                 int player1Position = scanner.nextInt();
 
@@ -71,7 +74,7 @@ public class Board {
                     selectedPosition.add(player1Position);
                     printBoard(exampleBoard);
                 }
-                System.out.println("Player 2, it is your turn: ");
+                System.out.println(humanPlayer2.getName() + ", it is your turn: ");
                 int player2Position = scanner.nextInt();
                 if(validatePosition(player2Position, selectedPosition, availablePosition)){
                     addLetter(exampleBoard, player2Position, "Player 2");
@@ -90,7 +93,7 @@ public class Board {
                 }
             }
         }
-    public static void playComputer(List<Integer> selectedPosition, List<Integer> availablePosition){
+    public void playComputer(List<Integer> selectedPosition, List<Integer> availablePosition){
         while(true) {
             Scanner scanner = new Scanner(System.in);
             int position = scanner.nextInt();
@@ -119,16 +122,16 @@ public class Board {
         }
 
     }
-        public static void printBoard(char[][] board) {
+        public void printBoard(char[][] board) {
             for (char[] row : board) {
                 for (char c : row) {
-                    System.out.print(c);
+                    System.out.print(getBoardColor() + c + resetColor);
                 }
                 System.out.println();
             }
         }
 
-        public static void addLetter(char[][] board, int position, String name){
+        public void addLetter(char[][] board, int position, String name){
             char sign;
             if(name.equals("Player 1")){
                 sign='X';
@@ -168,7 +171,7 @@ public class Board {
 
         }
 
-        public static List<Integer> createNumbers(){
+        public List<Integer> createNumbers(){
             List<Integer> availableNumbers = new ArrayList<>();
             for(int i = 1; i <= 9; i++){
                 availableNumbers.add(i);
@@ -176,20 +179,28 @@ public class Board {
             return availableNumbers;
         }
 
-        public static String checkWinner(List<Integer> positions, Player player){
+        public String checkWinner(List<Integer> positions, Player player){
             String whoWon = "";
             System.out.println("winningCombos: " + winningCombos);
-            System.out.println(player.getClass().getSimpleName() + " positions " + positions);
+            System.out.println(player.getName() + " positions " + positions);
             for (var i: winningCombos) {
                 if (positions.containsAll(i)){
-                    whoWon = player.getClass().getSimpleName() + " win";
+                    whoWon = player.getName() + " win";
                     System.out.println(whoWon);
                 }
             }
             return whoWon;
         }
 
-        static {
+    public String getBoardColor() {
+        return boardColor;
+    }
+
+    public void setBoardColor(String boardColor) {
+        this.boardColor = boardColor;
+    }
+
+    static {
             winningCombos.add(Arrays.asList(1,2,3));
             winningCombos.add(Arrays.asList(4,5,6));
             winningCombos.add(Arrays.asList(7,8,9));

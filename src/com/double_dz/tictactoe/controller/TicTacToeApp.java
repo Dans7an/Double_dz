@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 public class TicTacToeApp {
     private Scanner scanner = new Scanner(System.in);
+    private Board board;
+    private String player1Name;
+    private String player2Name;
+    private String backgroundColor;
 
     public void execute(){
         welcome();
@@ -24,11 +28,32 @@ public class TicTacToeApp {
     }
 
 
-
-    private void selectTheme(){
-        System.out.println("Please select your preferred theme. [G]reen, [R]ed, [Y]ellow");
-        String theme = scanner.nextLine();
-        System.out.println(theme);
+    private void selectTheme() {
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.println("Please select your preferred board color. [G]reen, [R]ed, [Y]ellow, [D]efault");
+            String theme = scanner.nextLine();
+            switch (theme) {
+                case "G":
+                    backgroundColor = "\u001B[42m";
+                    validInput = true;
+                    break;
+                case "R":
+                    backgroundColor = "\u001B[41m";
+                    validInput = true;
+                    break;
+                case "Y":
+                    backgroundColor = "\u001B[43m";
+                    validInput = true;
+                    break;
+                case "D":
+               //     backgroundColor = "\u001B[40m";
+                    backgroundColor = "";
+                    validInput = true;
+                    break;
+            }
+            System.out.println(theme);
+        }
     }
 
 
@@ -48,41 +73,46 @@ public class TicTacToeApp {
         return selectedMode;
     }
 
+    private void createBoard(){
+        board = new Board();
+        board.setBoardColor(backgroundColor);
+        board.humanPlayer.setName(player1Name);
+        board.humanPlayer2.setName(player2Name);
+
+    }
+
     private void createName(String mode){
         System.out.println("Please enter your name: ");
-        String player1Name = scanner.nextLine();
-        Board.humanPlayer.setName(player1Name);
+        player1Name = scanner.nextLine();
+        //board.humanPlayer.setName(player1Name);
 
         if(mode.equalsIgnoreCase("c")){
             System.out.println("Name for player: " + player1Name);
         }
         else{
             System.out.println("Please enter name of player 2");
-            String player2Name = scanner.nextLine();
-            Board.humanPlayer2.setName(player2Name);
+            player2Name = scanner.nextLine();
+           // board.humanPlayer2.setName(player2Name);
             System.out.println("Name for player 1: " + player1Name);
             System.out.println("Name for player 2: " + player2Name);
         }
     }
 
+
     private void startGame(String mode){
-        Board.play(mode);
+        createBoard();
+        board.play(mode);
     }
 
     private void moreOptions(String mode){
         while(true) {
             startGame(mode);
 
-
             boolean validInput = false;
             while(!validInput){
-                System.out.println("Do you want to [R]estart the game? [P]lay again? Or [Q]uit game?");
+                System.out.println("Do you want to [P]lay again? Or [Q]uit game?");
                 String options = scanner.nextLine().toUpperCase();
                 switch (options){
-                    case "R":
-                        restartGame();
-                        validInput = true;
-                        break;
                     case "P":
                         playAgain(mode);
                         validInput = true;
@@ -95,13 +125,12 @@ public class TicTacToeApp {
                 }
             }
 
-
         }
 
     }
 
     private void playAgain(String mode){
-        startGame(mode);
+        moreOptions(mode);
     }
 
     private void restartGame(){
@@ -109,13 +138,15 @@ public class TicTacToeApp {
     }
 
     private void quitGame(){
-
+        gameSurvey();
     }
 
 
     private void gameSurvey(){
-
-
+        System.out.println("Please rate our Tic-Tac-Toe game: ");
+        System.out.println("Is this the best game app you've ever used? Please enter [Y]es");
+        String survey = scanner.nextLine();
+        System.out.println("Thank you for giving us a 5 Star rating!");
     }
 
 }
