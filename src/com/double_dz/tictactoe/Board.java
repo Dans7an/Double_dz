@@ -20,15 +20,7 @@ public class Board {
                 {'4', '|', '5', '|', '6'},
                 {'_','+','_','+','_'},
                 {'7', '|', '8', '|', '9'}};
-        /*public static void main(String[] args) {
-            printBoard(exampleBoard);
-            List<Integer> selectedPosition = new ArrayList<>();
-            List<Integer> availablePosition = createNumbers();
-            System.out.println("Please enter a number between 1 and 9");
-            playComputer(selectedPosition, availablePosition);
-            // multiPlayer(selectedPosition, availablePosition);
-        }
-*/
+
 
         public void play(String mode){
             printBoard(exampleBoard);
@@ -43,7 +35,7 @@ public class Board {
         private boolean validatePosition(int position,List<Integer> selectedPosition, List<Integer> availablePosition){
             boolean isValidPosition = false;
             if (position > 9 || position < 1) {
-                System.out.println("Invalid input: " + position + ". Please enter a number between 1 and 9.");
+                System.out.println("Invalid input. Please enter one of these available numbers: " + availablePosition);
             } else if (selectedPosition.contains(position)) {
                 System.out.println("Position " + position + " already selected, please choose again from " + availablePosition);
             }
@@ -53,72 +45,104 @@ public class Board {
             return isValidPosition;
         }
 
+        /*private boolean isANumber(String position, List<Integer> selectedPosition, List<Integer> availablePosition){
+            boolean isValidNumber = false;
+            if(position.length()>1){
+                System.out.println("Invalid input: " + position + ". Please enter a number between 1 and 9.");
+            }
+
+        }*/
+
         public void multiPlayer(List<Integer> selectedPosition, List<Integer> availablePosition){
+            boolean isPlayer2PositionValid = true;
             while(true) {
                 System.out.println(humanPlayer.getName() + ", it is your turn: ");
                 Scanner scanner = new Scanner(System.in);
-                int player1Position = scanner.nextInt();
+                boolean isPositionANumber = scanner.hasNextInt();
 
-                if(validatePosition(player1Position, selectedPosition, availablePosition)) {
-                    addLetter(exampleBoard, player1Position, "Player 1");
-                    humanPlayer.placeLetter(player1Position);
-                    availablePosition.remove(Integer.valueOf(player1Position));
-                    if(checkWinner(humanPlayer.getSelectedPositions(), humanPlayer).length() > 0){
-                        break;
-                    }
-                    if(availablePosition.size()==0) {
+                if (isPositionANumber && isPlayer2PositionValid) {
+                    int player1Position = scanner.nextInt();
+                    if (validatePosition(player1Position, selectedPosition, availablePosition)) {
+                        addLetter(exampleBoard, player1Position, "Player 1");
+                        humanPlayer.placeLetter(player1Position);
+                        availablePosition.remove(Integer.valueOf(player1Position));
+                        if (checkWinner(humanPlayer.getSelectedPositions(), humanPlayer).length() > 0) {
+                            break;
+                        }
+                        if (availablePosition.size() == 0) {
+                            printBoard(exampleBoard);
+                            System.out.println("Game over! Result: Tie.");
+                            break;
+                        }
+                        selectedPosition.add(player1Position);
                         printBoard(exampleBoard);
-                        System.out.println("Game over! Result: Tie.");
-                        break;
                     }
-                    selectedPosition.add(player1Position);
-                    printBoard(exampleBoard);
-                }
-                System.out.println(humanPlayer2.getName() + ", it is your turn: ");
-                int player2Position = scanner.nextInt();
-                if(validatePosition(player2Position, selectedPosition, availablePosition)){
-                    addLetter(exampleBoard, player2Position, "Player 2");
-                    humanPlayer2.placeLetter(player2Position);
-                    availablePosition.remove(Integer.valueOf(player2Position));
-                    if(checkWinner(humanPlayer2.getSelectedPositions(), humanPlayer2).length() > 0){
-                        break;
+                    else{
+                        continue;
                     }
-                    if(availablePosition.size()==0) {
-                        printBoard(exampleBoard);
-                        System.out.println("Game over! Result: Tie.");
-                        break;
+
+                    scanner.nextLine();
+                    System.out.println(humanPlayer2.getName() + ", it is your turn: ");
+                    boolean isPosition2ANumber = scanner.hasNextInt();
+                    if(isPosition2ANumber){
+                        int player2Position = scanner.nextInt();
+                        System.out.println("working");
+                        if (validatePosition(player2Position, selectedPosition, availablePosition)) {
+                            addLetter(exampleBoard, player2Position, "Player 2");
+                            humanPlayer2.placeLetter(player2Position);
+                            availablePosition.remove(Integer.valueOf(player2Position));
+                            if (checkWinner(humanPlayer2.getSelectedPositions(), humanPlayer2).length() > 0) {
+                                break;
+                            }
+                            if (availablePosition.size() == 0) {
+                                printBoard(exampleBoard);
+                                System.out.println("Game over! Result: Tie.");
+                                break;
+                            }
+                            selectedPosition.add(player2Position);
+                            printBoard(exampleBoard);
                     }
-                    selectedPosition.add(player2Position);
-                    printBoard(exampleBoard);
+                    }
+                    else {
+                        isPlayer2PositionValid = false;
+                    }
                 }
             }
         }
     public void playComputer(List<Integer> selectedPosition, List<Integer> availablePosition){
-        while(true) {
+            while(true) {
+               // Console.clear();
             Scanner scanner = new Scanner(System.in);
-            int position = scanner.nextInt();
-            if (validatePosition(position, selectedPosition, availablePosition)) {
-                addLetter(exampleBoard, position, "Player 1");
-                humanPlayer.placeLetter(position);
-                availablePosition.remove(Integer.valueOf(position));
-                if(checkWinner(humanPlayer.getSelectedPositions(), humanPlayer).length() > 0){
+            boolean isPositionANumber = scanner.hasNextInt();
+
+            if(isPositionANumber){
+                int position = scanner.nextInt();
+                if (validatePosition(position, selectedPosition, availablePosition)) {
+                    addLetter(exampleBoard, position, "Player 1");
+                    humanPlayer.placeLetter(position);
+                    availablePosition.remove(Integer.valueOf(position));
+                    if(checkWinner(humanPlayer.getSelectedPositions(), humanPlayer).length() > 0){
+                        break;
+                    }
+                    if(availablePosition.size()==0){
+                        printBoard(exampleBoard);
+                        System.out.println("Game over! Result: Tie.");
+                        break;
+                    }
+                    int cpuPosition = cpuPlayer.generateCPUPosition(availablePosition);
+                    addLetter(exampleBoard, cpuPosition, "Computer");
+                    availablePosition.remove(cpuPlayer.getCPUPositionIndex());
+                    selectedPosition.add(cpuPosition);
+                }
+                if (checkWinner(cpuPlayer.getSelectedPositions(), cpuPlayer).length() > 0){
                     break;
                 }
-                if(availablePosition.size()==0){
-                    printBoard(exampleBoard);
-                    System.out.println("Game over! Result: Tie.");
-                    break;
-                }
-                int cpuPosition = cpuPlayer.generateCPUPosition(availablePosition);
-                addLetter(exampleBoard, cpuPosition, "Computer");
-                availablePosition.remove(cpuPlayer.getCPUPositionIndex());
-                selectedPosition.add(cpuPosition);
+                selectedPosition.add(position);
+                printBoard(exampleBoard);
             }
-            if (checkWinner(cpuPlayer.getSelectedPositions(), cpuPlayer).length() > 0){
-                break;
+            else {
+                System.out.println("Invalid input. Please enter one of these available numbers: " + availablePosition);
             }
-            selectedPosition.add(position);
-            printBoard(exampleBoard);
         }
 
     }
@@ -181,11 +205,11 @@ public class Board {
 
         public String checkWinner(List<Integer> positions, Player player){
             String whoWon = "";
-            System.out.println("winningCombos: " + winningCombos);
+            // System.out.println("winningCombos: " + winningCombos);
             System.out.println(player.getName() + " positions " + positions);
             for (var i: winningCombos) {
                 if (positions.containsAll(i)){
-                    whoWon = player.getName() + " win";
+                    whoWon = player.getName() + " win. Congratulation!";
                     System.out.println(whoWon);
                 }
             }

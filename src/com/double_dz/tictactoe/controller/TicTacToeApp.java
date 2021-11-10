@@ -31,7 +31,7 @@ public class TicTacToeApp {
     private void selectTheme() {
         boolean validInput = false;
         while (!validInput) {
-            System.out.println("Please select your preferred board color. [G]reen, [R]ed, [Y]ellow, [D]efault");
+            System.out.print("Please select your preferred board color. [G]reen, [R]ed, [Y]ellow, [D]efault:  ");
             String theme = scanner.nextLine();
             switch (theme) {
                 case "G":
@@ -61,7 +61,7 @@ public class TicTacToeApp {
         String selectedMode = null;
         boolean validInput = false;
         while(!validInput){
-            System.out.println("Please select your preferred play mode. Please enter [C] to play with computer, or [M] to play with another player");
+            System.out.print("Please select your preferred play mode. Please enter [C] to play with computer, or [M] to play with another player: ");
             String mode = scanner.nextLine().toUpperCase();
             System.out.println(mode);
             if(mode.matches("C|M")){
@@ -82,7 +82,7 @@ public class TicTacToeApp {
     }
 
     private void createName(String mode){
-        System.out.println("Please enter your name: ");
+        System.out.print("Please enter your name, Player 1: ");
         player1Name = scanner.nextLine();
         //board.humanPlayer.setName(player1Name);
 
@@ -90,11 +90,11 @@ public class TicTacToeApp {
             System.out.println("Name for player: " + player1Name);
         }
         else{
-            System.out.println("Please enter name of player 2");
+            System.out.print("Please enter your name, Player 2: ");
             player2Name = scanner.nextLine();
            // board.humanPlayer2.setName(player2Name);
-            System.out.println("Name for player 1: " + player1Name);
-            System.out.println("Name for player 2: " + player2Name);
+            System.out.println("Player 1: " + player1Name + " you'll go first, you are X");
+            System.out.println("Player 2: " + player2Name + " you'll go second, you are O");
         }
     }
 
@@ -105,12 +105,11 @@ public class TicTacToeApp {
     }
 
     private void moreOptions(String mode){
+        startGame(mode);
         while(true) {
-            startGame(mode);
-
             boolean validInput = false;
             while(!validInput){
-                System.out.println("Do you want to [P]lay again? Or [Q]uit game?");
+                System.out.print("Do you want to [P]lay again? Or [Q]uit game?   ");
                 String options = scanner.nextLine().toUpperCase();
                 switch (options){
                     case "P":
@@ -121,16 +120,13 @@ public class TicTacToeApp {
                         quitGame();
                         validInput = true;
                         return;
-                    // break;
                 }
             }
-
         }
-
     }
 
     private void playAgain(String mode){
-        moreOptions(mode);
+        startGame(mode);
     }
 
     private void quitGame(){
@@ -140,7 +136,7 @@ public class TicTacToeApp {
 
     private void gameSurvey(){
         System.out.println("Please rate our Tic-Tac-Toe game: ");
-        System.out.println("Is this the best game app you've ever used? Please enter [Y]es");
+        System.out.print("Is this the best game app you've ever used? Please enter [Y]es: ");
         String survey = scanner.nextLine();
         System.out.println("Thank you for giving us a 5 Star rating!");
     }
