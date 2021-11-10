@@ -1,7 +1,5 @@
 package com.double_dz.tictactoe.controller;
 
-import com.double_dz.tictactoe.Board;
-
 import java.util.Scanner;
 
 public class TicTacToeApp {

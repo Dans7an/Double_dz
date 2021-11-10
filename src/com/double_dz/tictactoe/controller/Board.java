@@ -1,4 +1,8 @@
-package com.double_dz.tictactoe;
+package com.double_dz.tictactoe.controller;
+
+import com.double_dz.tictactoe.ComputerPlayer;
+import com.double_dz.tictactoe.HumanPlayer;
+import com.double_dz.tictactoe.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,9 +11,9 @@ import java.util.Scanner;
 
 public class Board {
         public static List<List> winningCombos = new ArrayList<>();
-        public  Player humanPlayer = new HumanPlayer();
+        public Player humanPlayer = new HumanPlayer();
         public  Player humanPlayer2 = new HumanPlayer();
-        public  ComputerPlayer cpuPlayer = new ComputerPlayer();
+        public ComputerPlayer cpuPlayer = new ComputerPlayer();
         public  List<Integer> selectedPosition = new ArrayList<>();
         public  List<Integer> availablePosition = createNumbers();
         private String boardColor;
@@ -32,7 +36,7 @@ public class Board {
                 multiPlayer(selectedPosition, availablePosition);
             }
         }
-        private boolean validatePosition(int position,List<Integer> selectedPosition, List<Integer> availablePosition){
+         boolean validatePosition(int position,List<Integer> selectedPosition, List<Integer> availablePosition){
             boolean isValidPosition = false;
             if (position > 9 || position < 1) {
                 System.out.println("Invalid input. Please enter one of these available numbers: " + availablePosition);
@@ -209,7 +213,7 @@ public class Board {
             System.out.println(player.getName() + " positions " + positions);
             for (var i: winningCombos) {
                 if (positions.containsAll(i)){
-                    whoWon = player.getName() + " win. Congratulation!";
+                    whoWon = player.getName() + " win. Congratulations!";
                     System.out.println(whoWon);
                 }
             }
