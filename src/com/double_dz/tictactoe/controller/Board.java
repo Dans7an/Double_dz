@@ -49,14 +49,6 @@ public class Board {
             return isValidPosition;
         }
 
-        /*private boolean isANumber(String position, List<Integer> selectedPosition, List<Integer> availablePosition){
-            boolean isValidNumber = false;
-            if(position.length()>1){
-                System.out.println("Invalid input: " + position + ". Please enter a number between 1 and 9.");
-            }
-
-        }*/
-
         public void multiPlayer(List<Integer> selectedPosition, List<Integer> availablePosition){
             boolean isPlayer2PositionValid = true;
             while(true) {

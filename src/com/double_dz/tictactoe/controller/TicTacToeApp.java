@@ -22,11 +22,8 @@ public class TicTacToeApp {
         selectTheme();
         String selectMode = selectMode();
         createName(selectMode);
-        Console.clear();
-        // startGame(selectMode);
+        // Console.clear();
         moreOptions(selectMode);
-        // gameSurvey();
-
     }
     private void welcome(){
         try {
