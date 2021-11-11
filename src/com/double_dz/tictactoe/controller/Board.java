@@ -80,15 +80,15 @@ public class Board {
                         }
                         selectedPosition.add(player1Position);
                         printBoard(exampleBoard);
-                    }
-                    else{
+                    } else {
                         continue;
                     }
+                }
 
-                    scanner.nextLine();
+                if(isPositionANumber) {
                     System.out.println(humanPlayer2.getName() + ", it is your turn: ");
                     boolean isPosition2ANumber = scanner.hasNextInt();
-                    if(isPosition2ANumber){
+                    if (isPosition2ANumber) {
                         int player2Position = scanner.nextInt();
                         System.out.println("working");
                         if (validatePosition(player2Position, selectedPosition, availablePosition)) {
@@ -105,9 +105,9 @@ public class Board {
                             }
                             selectedPosition.add(player2Position);
                             printBoard(exampleBoard);
-                    }
-                    }
-                    else {
+                            isPlayer2PositionValid = true;
+                        }
+                    } else {
                         isPlayer2PositionValid = false;
                     }
                 }

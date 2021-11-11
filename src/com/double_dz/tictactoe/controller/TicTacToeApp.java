@@ -1,13 +1,19 @@
 package com.double_dz.tictactoe.controller;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Scanner;
 
+// implements Serializable 
 public class TicTacToeApp {
     private Scanner scanner = new Scanner(System.in);
     private Board board;
     private String player1Name;
     private String player2Name;
     private String backgroundColor;
+    private static final String dataFilePath = "resources/banner.txt";
 
     public void execute(){
         welcome();
@@ -20,9 +26,22 @@ public class TicTacToeApp {
 
     }
     private void welcome(){
-        System.out.println();
-        System.out.println("Welcome to Double d'Z Tic-Tac-Toe Game!");
-        System.out.println("\n");
+        String welcome = "";
+//        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(dataFilePath))){
+//            welcome = (String) out.readObject();
+//        } catch (IOException | ClassNotFoundException e) {   // multi-catch (catches only these 2)
+//            e.printStackTrace();
+//        }
+        try {
+            String lines = Files.readString(Path.of(dataFilePath));
+            System.out.println(lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        System.out.println();
+//        System.out.println("Welcome to Double d'Z Tic-Tac-Toe Game!");
+//        System.out.println("\n");
     }
 
 
@@ -30,7 +49,7 @@ public class TicTacToeApp {
         boolean validInput = false;
         while (!validInput) {
             System.out.print("Please select your preferred board color. [G]reen, [R]ed, [Y]ellow, [D]efault:  ");
-            String theme = scanner.nextLine();
+            String theme = scanner.nextLine().toUpperCase();
             switch (theme) {
                 case "G":
                     backgroundColor = "\u001B[42m";
