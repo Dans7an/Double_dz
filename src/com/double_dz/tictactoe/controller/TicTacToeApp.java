@@ -41,26 +41,24 @@ public class TicTacToeApp {
     private void selectTheme() {
         boolean validInput = false;
         while (!validInput) {
-            System.out.print("Please select your preferred board color. [G]reen, [R]ed, [Y]ellow, [D]efault:  ");
-            String theme = scanner.nextLine().toUpperCase();
-            switch (theme) {
-                case "G":
-                    backgroundColor = "\u001B[42m";
-                    validInput = true;
-                    break;
-                case "R":
-                    backgroundColor = "\u001B[41m";
-                    validInput = true;
-                    break;
-                case "Y":
-                    backgroundColor = "\u001B[43m";
-                    validInput = true;
-                    break;
-                case "D":
-               //     backgroundColor = "\u001B[40m";
-                    backgroundColor = "";
-                    validInput = true;
-                    break;
+            System.out.print("Please select your preferred board color. [G]reen, [R]ed, [Y]ellow:  ");
+            String theme = scanner.nextLine();
+            if(theme.equalsIgnoreCase("G")) {
+                backgroundColor = "\u001B[42m";
+                validInput = true;
+            }
+            else if(theme.equalsIgnoreCase("R")) {
+                backgroundColor = "\u001B[41m";
+                validInput = true;
+            }
+            else if(theme.equalsIgnoreCase("Y")) {
+                backgroundColor = "\u001B[43m";
+                validInput = true;
+            }
+            else{
+                System.out.println("You didn't pick a specific color, board color will be set as Default.");
+                backgroundColor = "";
+                validInput = true;
             }
             System.out.println(theme);
         }
