@@ -1,5 +1,7 @@
 package com.double_dz.tictactoe.controller;
 
+import com.apps.util.Console;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,28 +22,19 @@ public class TicTacToeApp {
         selectTheme();
         String selectMode = selectMode();
         createName(selectMode);
+        Console.clear();
         // startGame(selectMode);
         moreOptions(selectMode);
         // gameSurvey();
 
     }
     private void welcome(){
-        String welcome = "";
-//        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(dataFilePath))){
-//            welcome = (String) out.readObject();
-//        } catch (IOException | ClassNotFoundException e) {   // multi-catch (catches only these 2)
-//            e.printStackTrace();
-//        }
         try {
             String lines = Files.readString(Path.of(dataFilePath));
             System.out.println(lines);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        System.out.println();
-//        System.out.println("Welcome to Double d'Z Tic-Tac-Toe Game!");
-//        System.out.println("\n");
     }
 
 
