@@ -18,7 +18,6 @@ public class ComputerPlayer implements Player {
     public int generateCPUPosition(List<Integer> availablePosition){
         cpuIndex = (int) Math.floor(Math.random() * availablePosition.size());
         int cpuPosition = availablePosition.get(cpuIndex);
-        System.out.println("cpuPosition: " + cpuPosition);
         placeLetter(cpuPosition);
         return cpuPosition;
     }

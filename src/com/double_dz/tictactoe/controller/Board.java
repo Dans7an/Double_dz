@@ -53,6 +53,7 @@ public class Board {
             boolean isPlayer2PositionValid = true;
             while(true) {
                 System.out.println(humanPlayer.getName() + ", it is your turn: ");
+                System.out.println();
                 Scanner scanner = new Scanner(System.in);
                 boolean isPositionANumber = scanner.hasNextInt();
 
@@ -79,6 +80,7 @@ public class Board {
 
                 if(isPositionANumber) {
                     System.out.println(humanPlayer2.getName() + ", it is your turn: ");
+                    System.out.println();
                     boolean isPosition2ANumber = scanner.hasNextInt();
                     if (isPosition2ANumber) {
                         int player2Position = scanner.nextInt();
@@ -205,7 +207,7 @@ public class Board {
             System.out.println(player.getName() + " positions " + positions);
             for (var i: winningCombos) {
                 if (positions.containsAll(i)){
-                    whoWon = player.getName() + " win. Congratulations!";
+                    whoWon = player.getName() + " won. Congratulations!";
                     System.out.println(whoWon);
                 }
             }
