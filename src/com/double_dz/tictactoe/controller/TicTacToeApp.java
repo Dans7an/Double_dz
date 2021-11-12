@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 
-// implements Serializable 
+
 public class TicTacToeApp {
     private Scanner scanner = new Scanner(System.in);
     private Board board;
@@ -17,6 +17,7 @@ public class TicTacToeApp {
     private String backgroundColor;
     private static final String dataFilePath = "resources/banner.txt";
 
+    // runs the game and acts as a menu
     public void execute(){
         welcome();
         selectTheme();
@@ -25,6 +26,8 @@ public class TicTacToeApp {
         // Console.clear();
         moreOptions(selectMode);
     }
+
+    // uses the banner to display the welcome message
     private void welcome(){
         try {
             String lines = Files.readString(Path.of(dataFilePath));
@@ -34,7 +37,7 @@ public class TicTacToeApp {
         }
     }
 
-
+    // handles selecting the background color
     private void selectTheme() {
         boolean validInput = false;
         while (!validInput) {
@@ -61,7 +64,7 @@ public class TicTacToeApp {
         }
     }
 
-
+    // handles choosing between playing the CPU and multi-player
     private String selectMode(){
         String selectedMode = null;
         boolean validInput = false;
@@ -78,6 +81,7 @@ public class TicTacToeApp {
         return selectedMode;
     }
 
+    // Create a new game with a fresh board
     private void createBoard(){
         board = new Board();
         board.setBoardColor(backgroundColor);
@@ -86,6 +90,7 @@ public class TicTacToeApp {
 
     }
 
+    // selects the name of the player
     private void createName(String mode){
         System.out.print("Please enter your name, Player 1: ");
         player1Name = scanner.nextLine();
@@ -103,12 +108,13 @@ public class TicTacToeApp {
         }
     }
 
-
+    // Starts the game and orcherstrates playing
     private void startGame(String mode){
         createBoard();
         board.play(mode);
     }
 
+    // handles what happens at the end of the game
     private void moreOptions(String mode){
         startGame(mode);
         while(true) {
@@ -139,6 +145,7 @@ public class TicTacToeApp {
     }
 
 
+    // a quick survey at the end of the game
     private void gameSurvey(){
         System.out.println("Please rate our Tic-Tac-Toe game: ");
         System.out.print("Is this the best game app you've ever used? Please enter [Y]es: ");

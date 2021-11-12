@@ -15,6 +15,7 @@ public class ComputerPlayer implements Player {
         return cpuSelectedPositions;
     }
 
+    // Creates a random CPU position
     public int generateCPUPosition(List<Integer> availablePosition){
         cpuIndex = (int) Math.floor(Math.random() * availablePosition.size());
         int cpuPosition = availablePosition.get(cpuIndex);
