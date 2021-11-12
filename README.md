@@ -3,7 +3,7 @@ Tic-tac-toe
 Thank you for downloading our game TIC-TAC-TOE
 
 
-###How to Play : 
+### How to Play : 
 1. The game is played on a grid that's 3 squares by 3 squares.
 
 2. You are X, your friend (or the computer in this case) is O. Players take turns putting their marks in empty squares.
@@ -12,7 +12,7 @@ Thank you for downloading our game TIC-TAC-TOE
 
 4. When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie.
 
-###Our Game : 
+### Our Game : 
 Double d'Z TIC-TAC-TOE has a theme feature where users can select different colors. In order to use this feature
 please download our file for a one time fee of  19.99. This will allow any Windows' user to generate themes in 
 their command prompt. MAC users should not have a problem with theme functionality. 
@@ -23,5 +23,5 @@ their command prompt. MAC users should not have a problem with theme functionali
 4. Take turns placing letters on board until one player either wins or tie. 
 5. Rate the game.
 
-###Survey :
+### Survey :
 Please Rate Yes for the survey question " Is this the best app you have every played"
